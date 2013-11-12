@@ -29,8 +29,10 @@
 
 if(distance_to_point(mouse_x,mouse_y) == 0)
 {
+    //if clicked
     if(mouse_check_button(mb_left))
     {
+        //start game
         room_goto_next();
     }
 }

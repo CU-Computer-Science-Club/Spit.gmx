@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>square = 1;
+            <string>//These are pretty much readable
+square = 1;
 circle = 2;
 triangle = 3;
 gradientEnabled = 1;

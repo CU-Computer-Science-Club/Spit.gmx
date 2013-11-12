@@ -51,16 +51,16 @@ faceing=1;
 image_speed=0;
 image_index=1;
 //FireRate= 0.5 * room_speed;
-PAmmoOnPlayer = 10;
-SAmmoOnPlayer = 25;
-PlayerLives=3;
-OriginX= obj_player.x;
-OriginY= obj_player.y;
+PAmmoOnPlayer = 30; //pencil ammo
+SAmmoOnPlayer = 25; //sharper ammo
+PlayerLives=3; //amount of lives
+OriginX= obj_player.x; //origin x of player
+OriginY= obj_player.y; //origin y of player
 
-pencilfire = 1;
-sharperfire = 1;
-current = 1;
-alloweddamage = 1;
+pencilfire = 1; //make sure you can shoot a pencil
+sharperfire = 1; //make sure you can shoot a pencil from a sharper
+current = 1; // current weapon equipped default is 1 which is melee (melee isnt coded)
+alloweddamage = 1; //allowed damage is for collison with enemies
 </string>
           </argument>
         </arguments>
@@ -386,19 +386,26 @@ if(slideEnabled)
 //sign(x) returns 1 if x is positive, -1 if x is negative
 for(i=0;i&lt;abs(xsp);i++)
 {
+    // if not meeting obj_wall on the x axis
     if(!place_meeting(x+sign(xsp),y,obj_wall))
     {
+        //add to x to advance player
         x += sign(xsp);
     }
 }
+//jumping for loop
 for(i=0;i&lt;abs(ysp);i++)
 {
+    //if not meeting obj_wall on the y axis
     if(!place_meeting(x,y+sign(ysp),obj_wall))
     {
+        //increase y
         y += sign(ysp);
     }
+    //if not grounded and not touching the floor
     if(place_meeting(x,y+sign(ysp),obj_wall) &amp;&amp; grounded == 0)
     {
+        //make player fall
         ysp += grav;
     } 
 }
@@ -422,50 +429,21 @@ for(i=0;i&lt;abs(ysp);i++)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if(keyboard_check(fire))
-{
-    if(AmmoOnPlayer &gt; 0)
-    {
-        if(FireRate &lt;1)
-        {
-            if(faceing==1)
-            {
-                instance_create(x+32,y ,obj_pencil );
-            }
-            if(faceing==0)
-            {
-                instance_create(x-32,y ,obj_pencil );
-            }
-            FireRate = .5 * room_speed;
-            AmmoOnPlayer = AmmoOnPlayer - 1;
-        }
-    }
-    else
-    {
-        //NO AMMO!!!
-    }
-}
-
-if(FireRate&gt;0)
-{
-    FireRate= FireRate - 1;
-}*/
-
-/*
+            <string>/*
     Script to allow firing a weapon or in this case pencils
     James
 */
 
 //Set variable to use with alarm to fire
-if(keyboard_check_pressed(ord("1")))
+if(keyboard_check_pressed(ord("1"))) //1 = melee
 {
     current = 1;
 }
-if(keyboard_check_pressed(ord("2")))
+if(keyboard_check_pressed(ord("2"))) //2 = pencils
 {
     current = 2;
 }
-if(keyboard_check_pressed(ord("3")))
+if(keyboard_check_pressed(ord("3"))) //3 = sharper
 {
     current = 3;
 }
@@ -474,43 +452,53 @@ if(keyboard_check_pressed(ord("3")))
 //if(keyboard_check(fire))
 if(mouse_check_button(mb_left))
 {
+    //if current weapon is pencils
     if(current = 2)
     {
+        // if player has ammo
         if(PAmmoOnPlayer&gt;0)
         {
+            //if player can fire
             if(pencilfire = 1)
             {
                 //Set pencilfire to 0 so we cant fire again for a second.
                 pencilfire = 0;
-                var newbullet;
-                newbullet = instance_create(x,y,obj_pencil);
-                newbullet.sp = 5;
-                sound_play(snd_pencilfire);
+                var newbullet; //create a newbullet
+                newbullet = instance_create(x,y,obj_pencil); //create on player
+                newbullet.sp = 5; //set pencil's speed to 5
+                sound_play(snd_pencilfire); // play the pencilfire sound
             }
         }
+        //if there is no ammon on player
         else if(PAmmoOnPlayer&lt;=0)
         {
             //Do nothing add sound later
         }
     }
+    //if current weapon is a sharper
     if(current = 3)
     {
+        // if player has sharper ammo
         if(SAmmoOnPlayer&gt;0)
         {
+            // if the sharper can fire
             if(sharperfire = 1)
             {
                 //Set pencilfire to 0 so we cant fire again for a second.
                 sharperfire = 0;
-                var newsharper;
-                newsharper = instance_create(x,y,obj_sharper);
-                newsharper.sp = 5;
-                sound_play(snd_pencilfire);
+                var newsharper; //create new sharper varable
+                newsharper = instance_create(x,y,obj_sharper); //create new sharper on player
+                newsharper.sp = 5; //set new sharper bullet speed to 5
+                sound_play(snd_pencilfire); // player firing sound
             }
         }
+        // if player has no ammon
         else if(SAmmoOnPlayer&lt;=0)
         {
+            //if emptyclip isnt playing
             if(!sound_isplaying(snd_emptyclip))
             {
+                //play emptyclip sound
                 sound_play(snd_emptyclip);
             }
         }
@@ -539,16 +527,20 @@ if(mouse_check_button(mb_left))
             <string>//Make player always face mouse
 if(obj_player.x&lt;mouse_x)
 {
+    // change facing to right
     Facing=1;
     image_index=1;
 }
 else if(obj_player.x&gt;mouse_x)
 {
+    //change facing to left 
     Facing=0;
     image_index=0;
 }
+//if the player has no more lives end the game
 if(PlayerLives &lt;= 0)
 {
+    //go to game over room
     room_goto(rm_gameover);
 }
 </string>
@@ -573,10 +565,15 @@ if(PlayerLives &lt;= 0)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(alloweddamage == 1)
+            <string>//if we get a collison with a enemy we lose a live and set time to "recover"
+//used to set timer
+if(alloweddamage == 1)
 {
+    //lose a life
     obj_player.PlayerLives -= 1;
+    //set alloweddamage to 0 so we dont lose all our lives at once
     alloweddamage = 0;
+    // set timer can change
     obj_player.alarm[3] = 50;
 }
 </string>

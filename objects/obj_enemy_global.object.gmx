@@ -25,16 +25,23 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>dropchance = random(5);
-if(dropchance&gt;3)
+            <string>//have a chance to drop items change is global on diff
+dropchance = random(global.drop);
+//if drop change is greater than half of global.drop run script to drop item
+if(dropchance&gt;(global.drop/2))
 {
+    //random number from 1-100
     rand = random_range(1,100);
+    //if greater than 50 drop sharper bullets
     if(rand&gt;50)
     {
+        //create the instance of obj_sammo
         instance_create(x,y,obj_sammo);
     }
-    else if(rand&lt;50)
+    //if lower than or equal to 50 than drop pencils 
+    else if(rand&lt;=50)
     {
+        //create the instance of obj_pammo
         instance_create(x,y,obj_pammo);
     }
 }
@@ -60,7 +67,8 @@ if(dropchance&gt;3)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>self.hp -= 1;
+            <string>//when a collision happens lose a life
+hp -= 1;
 </string>
           </argument>
         </arguments>

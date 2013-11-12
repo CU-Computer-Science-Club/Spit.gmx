@@ -92,6 +92,10 @@ if (!dead)
             instance_position(obj_player.x,obj_player.y,obj_player)
         }
     }*/
+    /*
+        Add score and destroy with hp&lt;0 kept previous code incase was needed
+        James
+    */
     if(self.hp&lt;0)
     {
         score += 10;

@@ -25,10 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*xsp=0;
-direct=obj_player.faceing;
-*/
-/*
+            <string>/*
     Set Global Variables for Pencils
     James
 */
@@ -69,20 +66,7 @@ obj_player.PAmmoOnPlayer -= 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if(direct==1)
-{
-    x=x+16;
-}
-if(direct==0)
-{
-    x=x-16;
-}
-if(place_meeting(x,y,obj_wall))
-{
-    instance_destroy();
-}*/
-
-/*
+            <string>/*
     If it pencils doesnt hit a wall or a object that has obj_wall as parent keep going else destroy
     james
 */
@@ -104,31 +88,6 @@ for(i=0;i&lt;abs(self.sp);i++)//abs(self.sp) = abs(5)
         instance_destroy();
     }
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_goomba">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>other.Hit=1;
-//instance_destroy();
-
 </string>
           </argument>
         </arguments>

@@ -28,18 +28,29 @@
             <string>speed_key = ord('Q');
 reset_key = ord('R');
 HelpMenu = ord('H');
+//Set the view variables used in the draw step
 view_score = view_wview[0]+(view_xview[0]);
 view_lives = view_wview[0]+(view_xview[0]);
 view_ammos = view_wview[0]+(view_xview[0]);
+//hard code diff for testing purposes
 global.diff = "normal";
+//use checks for diff
 if(global.diff == "normal")
 {
+    // Pencil Variables such as firing speed and the rate of firing
     global.pencilfiresp = 14;
     global.pencilrate = 12;
+
+    // Sharper Variables such as firing speed and the rate of firing    
     global.sharperfiresp = 20;
     global.sharperrate = 5;
+    // Set enemy health based on diff specialenemy have more health and should drop items all the time unless on hard
     global.enemyhp = 10;
     global.specialenemyhp = 40;
+    //enemy drop chance
+    global.drop = 5;
+    
+    // global damage for pencils and sharper
     global.pdamage = 3;
     global.sdamage = 2;
 }
@@ -65,7 +76,8 @@ if(global.diff == "normal")
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(keyboard_check_pressed(speed_key))
+            <string>//speed up gamee when pressed
+if(keyboard_check_pressed(speed_key))
 {
     if(room_speed == 30)
     {
@@ -76,6 +88,7 @@ if(global.diff == "normal")
         room_speed = 30;
     }
 }
+//restart the game when pressed
 if(keyboard_check_pressed(reset_key))
 {
     room_restart();
@@ -104,30 +117,42 @@ if(keyboard_check_pressed(reset_key))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw_text((room_width)/2-string_width(string ("Ammo: ")+ string(obj_player.AmmoOnPlayer)),16,string ("Ammo: ")+ string(obj_player.AmmoOnPlayer));   
+            <string>//if player presses right declared in obj_player (no need to declare again) this keeps the key global for this purpose
 if(keyboard_check(obj_player.right))
 {
+    //each view has a specific rate (score = 5, lives = 3, ammos=2)
     view_score = view_wview[0]+(view_xview[0]*5*30/room_speed);
     view_lives = view_wview[0]+(view_xview[0]*3*30/room_speed);
     view_ammos = view_wview[0]+(view_xview[0]*2*30/room_speed);
 }
+//if player presses left send the drawings to the left
 else if(keyboard_check(obj_player.left))
 {
+    //each view has a specific rate (score = 5, lives = 3, ammos=2)
     view_score = view_wview[0]-(view_xview[0]*-5*30/room_speed);
     view_lives = view_wview[0]-(view_xview[0]*-3*30/room_speed);
     view_ammos = view_wview[0]-(view_xview[0]*-2*30/room_speed);
 }
+//actually draw the stuff using the view points
 draw_text((view_score)/5-string_width(string ("Score: ")+ string(score)),16,string ("Score: ")+ string(score));
 draw_text((view_lives)/3-string_width(string ("Lives: ")+ string(obj_player.PlayerLives)),16,string ("Lives: ")+ string(obj_player.PlayerLives));
-if(obj_player.current == 2)
+//if weapon is melee weapon draw melee text
+if(obj_player.current == 1)
+{
+   draw_text((view_ammos)/2-string_width(string ("Melee")),16,string ("Melee")); 
+}
+//else if weapon is pencils draw pencils text 
+else if(obj_player.current == 2)
 {
     draw_text((view_ammos)/2-string_width(string ("Ammo: ")+ string(obj_player.PAmmoOnPlayer)),16,string ("Ammo: ")+ string(obj_player.PAmmoOnPlayer));
 }
+//else if weapon is sharper draw sharper text
 else if(obj_player.current == 3)
 {
     draw_text((view_ammos)/2-string_width(string ("Ammo: ")+ string(obj_player.SAmmoOnPlayer)),16,string ("Ammo: ")+ string(obj_player.SAmmoOnPlayer));
 }
 
+//stuff that was here when i got the game
 if(keyboard_check_pressed(HelpMenu))
 {
     text_height = 16;

@@ -25,10 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*xsp=0;
-direct=obj_player.faceing;
-*/
-/*
+            <string>/*
     Set Global Variables for Pencils
     James
 */
@@ -69,20 +66,7 @@ obj_player.SAmmoOnPlayer -= 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if(direct==1)
-{
-    x=x+16;
-}
-if(direct==0)
-{
-    x=x-16;
-}
-if(place_meeting(x,y,obj_wall))
-{
-    instance_destroy();
-}*/
-
-/*
+            <string>/*
     If it pencils doesnt hit a wall or a object that has obj_wall as parent keep going else destroy
     james
 */

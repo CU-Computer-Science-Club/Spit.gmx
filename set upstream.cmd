@@ -5,5 +5,5 @@ pause
 ECHO Setting up Upstream
 git remote add upstream https://github.com/CU-Computer-Science-Club/Spit.gmx.git
 set /p user=Enter your username: 
-git branch user
+git branch %user%
 pause

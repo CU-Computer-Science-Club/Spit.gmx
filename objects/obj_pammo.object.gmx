@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(global.diff == "normal")
+            <string>//set amount based on diff
+if(global.diff == "normal")
 {
     amount = 10;
 }
@@ -51,7 +52,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>obj_player.PAmmoOnPlayer += self.amount;
+            <string>//add amount of ammon on collision with obj_player
+obj_player.PAmmoOnPlayer += amount;
+//than destroy self
 instance_destroy();
 </string>
           </argument>
